@@ -15,7 +15,15 @@ pipeline {
             steps {
 		    // Run the maven build
                 echo 'Clean Build'
-		sh 'mvn clean compile'
+		sh 'mvn -B -DskipTests clean package'
+            }
+        }
+	 
+	  stage('Test') {
+            steps {
+		    // Run integration test
+                echo 'Testing'
+                sh 'mvn test'
             }
         }
 	stage("Release scope") {
@@ -47,13 +55,7 @@ pipeline {
         }
     
         
-   stage('Test') {
-            steps {
-		    // Run integration test
-                echo 'Testing'
-                sh 'mvn test'
-            }
-        }
+   
 	    
 	    
 	    
